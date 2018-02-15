@@ -1,20 +1,18 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=/Users/jeremyting/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
-alias ll='ls -a'
-alias gs='git status'
-alias gc='git commit -m'
-alias gb='git branch'
-alias pull='git pull'
-alias push='git push'
-alias ga='git add .'
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -52,10 +50,11 @@ alias ga='git add .'
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
-
+alias vi='vim'
+alias gcnmsg='git commit -n -m'
 # User configuration
 
-export PATH="./bin:/Users/JEremy/.rvm/gems/ruby-2.1.5/bin:/Users/JEremy/.rvm/gems/ruby-2.1.5@global/bin:/Users/JEremy/.rvm/rubies/ruby-2.1.5/bin:/Users/JEremy/.rbenv/shims:/Users/JEremy/bin:/usr/local/bin:/usr/local/sbin:/Users/JEremy/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/texbin:/Users/JEremy/.rvm/bin"
+# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -84,4 +83,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-eval "$(rbenv init -)"
+
+export NVM_DIR="/Users/jeremyting/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export VAULT_ADDR=https://secrets.abacuscorp.com:8200
+export VAULT_SKIP_VERIFY=1

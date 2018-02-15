@@ -1,69 +1,124 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 
-" set the runtime path to include Vundle and initialize
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 set rtp+=~/.vim/bundle/Vundle.vim
+
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+    """
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'jpalardy/vim-slime'
+    Plugin 'scrooloose/nerdtree'
+    Plugin 'jistr/vim-nerdtree-tabs'
+    "Plugin 'scrooloose/syntastic'
+    Plugin 'Valloric/YouCompleteMe'
+    Plugin 'losingkeys/vim-niji'
+    Plugin 'kien/ctrlp.vim'
+    Plugin 'mileszs/ack.vim'
+    Plugin 'elzr/vim-json'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+    """ CSS Syntax
+    Plugin 'JulesWang/css.vim'
+    Plugin 'cakebaker/scss-syntax.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'airblade/vim-gitgutter'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-Plugin 'user/L9', {'name': 'newL9'}
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-srround'
-Plugin 'Shougo/neocomplcache.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'flazz/vim-colorschemes'
+    """ Verilog Syntax (why would you ever use this?)
+    Plugin 'nachumk/systemverilog.vim'
 
-" All of your Plugins must be added before the following line
+    """ Scala Syntax
+    Plugin 'derekwyatt/vim-scala'
+
+    """
+    Plugin 'chriskempson/base16-vim'
+    Plugin 'joonty/vdebug.git'
+
+    """
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
 
-syntax on
-colorscheme chance-of-storm
-set number
-set mouse=a
+""" Airline
+set laststatus=2
+set noshowmode
+set cmdheight=1
+let g:airline_theme='term'
+"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+""" Slime
+let g:slime_target = "tmux"
+let g:slime_python_ipython = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Nerd Tree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <C-n> :NERDTreeToggle<CR>
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Columns & Lines
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nu
+set ruler
+set statusline=%f\ -\ FileType:\ %y
+set cursorline
+set scrolloff=4
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+
+set nobackup
+set nowb
 set noswapfile
 
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
-autocmd Filetype javascript setlocal ts=4 sw=4 sts=0 noexpandtab
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set splitright
+" yank to clipboard (requires 7.4)
+set clipboard=unnamed
 
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set backspace=indent,eol,start
 
-set paste
+set expandtab
+set autoindent
+set smartindent
+autocmd BufWritePre * :%s/\s\+$//e
 
-set nocompatible
-set backspace=2
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Font
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+set background=dark
+"colorscheme base16-tomorrow
 
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Mouse
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set mouse=a
+set ttymouse=xterm2
+
+set autoread
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Other Shit
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set ignorecase
+
+" => Debug Stuff
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:vdebug_options= {
+\}
+
